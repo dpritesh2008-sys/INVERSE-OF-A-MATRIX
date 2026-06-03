@@ -24,47 +24,12 @@ End the program
 
 ## Program:
 ~~~
-# Given matrix
-A = [[2, 1, 1],
-     [1, 1, 1],
-     [1, -1, 2]]
-
-# Determinant
-det = (A[0][0]*(A[1][1]*A[2][2] - A[1][2]*A[2][1])
-      -A[0][1]*(A[1][0]*A[2][2] - A[1][2]*A[2][0])
-      +A[0][2]*(A[1][0]*A[2][1] - A[1][1]*A[2][0]))
-
-# Cofactor matrix
-cof = [
-    [(A[1][1]*A[2][2] - A[1][2]*A[2][1]),
-     -(A[1][0]*A[2][2] - A[1][2]*A[2][0]),
-     (A[1][0]*A[2][1] - A[1][1]*A[2][0])],
-
-    [-(A[0][1]*A[2][2] - A[0][2]*A[2][1]),
-     (A[0][0]*A[2][2] - A[0][2]*A[2][0]),
-     -(A[0][0]*A[2][1] - A[0][1]*A[2][0])],
-
-    [(A[0][1]*A[1][2] - A[0][2]*A[1][1]),
-     -(A[0][0]*A[1][2] - A[0][2]*A[1][0]),
-     (A[0][0]*A[1][1] - A[0][1]*A[1][0])]
-]
-
-# Transpose (Adjoint)
-adj = [[cof[j][i] for j in range(3)] for i in range(3)]
-
-# Inverse
-inv = [[adj[i][j]/det for j in range(3)] for i in range(3)]
-
-# Format like NumPy output
-def fmt(x):
-    if abs(x - int(x)) < 1e-9:
-        return f"{int(x)}."
-    else:
-        return f"{x:.8f}".rstrip('0')
-
-print(f"[[ {fmt(inv[0][0]):<10} {fmt(inv[0][1]):<10}   {fmt(inv[0][2]):<10}]")
-print(f" [{fmt(inv[1][0]):<10}  { fmt(inv[1][1]):<10} {fmt(inv[1][2]):<10}]")
-print(f" [{fmt(inv[2][0]):<10}  { fmt(inv[2][1]):<10}  {fmt(inv[2][2]):<10}]]")
+import os
+os.environ["OPENBLAS_NUM_THREADS"]="1"
+import numpy as np
+a=np.array([[1,0,3],[-1,2,-2],[2,3,-1]])
+b=np.linalg.inv(a)
+print(b)
 ~~~
 ## Output:
 <img width="1292" height="342" alt="image" src="https://github.com/user-attachments/assets/40239df4-6cbe-44ef-90ee-c7b46bbae066" />
